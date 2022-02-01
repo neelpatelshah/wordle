@@ -77,7 +77,7 @@ const mapColors = (colors) =>
         } else if (color === 2) {
             return "yellow"
         } else {
-            return
+            return "";
         }
     })
 
