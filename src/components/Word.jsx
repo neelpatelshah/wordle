@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import useEnterPress from '../hooks/useEnterPress';
 import Square from "./Square"
 
-const Word = ({ active, nextWord }) => {
+const Word = ({ active, nextWord, setGuess, colors }) => {
     const [enteredLetter, setEnteredLetter] = useState("")
     const [currentLetter, setCurrentLetter] = useState(0)
     const [word, setWord] = useState("")
     const letters = ["this", "is", "an", "easter", "egg"]
-    const enter = useEnterPress()
 
     if (active) console.log(word)
 
@@ -16,17 +14,19 @@ const Word = ({ active, nextWord }) => {
             if (word.length <= 5) {
                 setCurrentLetter(currentLetter + 1)
                 setWord(`${word}${enteredLetter}`)
+                setGuess(`${word}${enteredLetter}`)
                 setEnteredLetter("")
             }
         }
     }, [enteredLetter])
 
-    useEffect(() => {
-        if (word.length === 5) {
-            nextWord()
-            setWord("")
-        }
-    }, [enter])
+    // useEffect(() => {
+    //     if (word.length === 5) {
+    //         setGuess(word)
+    //         nextWord()
+    //         setWord("")
+    //     }
+    // }, [enter])
 
     return (
         <div style={styles.row}>
@@ -34,6 +34,7 @@ const Word = ({ active, nextWord }) => {
                 <Square 
                     active={active && currentLetter === index} 
                     setEnteredLetter={setEnteredLetter}
+                    color={colors[index]}
                 />
             )}
         </div>

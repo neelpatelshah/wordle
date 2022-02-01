@@ -7,7 +7,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <p style={{fontFamily: "Quicksand"}}>
-          PRO UNION WORDLE {`${isMobile ? "pee" : ""}`}
+          PRO UNION WORD GAME {`${isMobile ? "pee" : ""}`}
         </p>
         <Wordle />
       </header>

@@ -18,9 +18,14 @@ const Letter = ({ active, setEnteredLetter }) => {
     return <p style={styles.letter}> {letter} </p>
 }
 
-const Square = ({ active, setEnteredLetter }) => {
+const Square = ({ active, setEnteredLetter, color }) => {
+    const [squareColor, setSquareColor] = useState("")
+    useEffect(() => {
+        setSquareColor(color)
+    }, [color])
+
     return (
-        <SquareView> 
+        <SquareView style={{backgroundColor: squareColor}}> 
             <Letter active={active} setEnteredLetter={setEnteredLetter}/>
          </SquareView>
     )

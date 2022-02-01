@@ -11,7 +11,6 @@ function useLetterPress(active) {
             setKeyPressed(key)
         }  
         if (key === keyPressed) {
-            console.log(true)
             setCapitalze(false)
         }
     }
@@ -23,7 +22,7 @@ function useLetterPress(active) {
         return () => {
             window.removeEventListener("keydown", downHandler);
         };
-    }, [active]); // Empty array ensures that effect is only run on mount and unmount
+    }, [active]); 
     return capitalize ? 
         keyPressed.toUpperCase()
         : keyPressed
