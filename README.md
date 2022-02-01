@@ -1,0 +1,2 @@
+# wordle
+pro-union wordle
