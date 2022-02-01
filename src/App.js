@@ -1,13 +1,15 @@
 import './App.css';
+import { isMobile } from "react-device-detect"
+import Wordle from "./Wordle"
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <p>
-          PRO UNION WORDLE
+        <p style={{fontFamily: "Quicksand"}}>
+          PRO UNION WORDLE {`${isMobile ? "pee" : ""}`}
         </p>
-
+        <Wordle />
       </header>
     </div>
   );
