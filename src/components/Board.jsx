@@ -20,7 +20,7 @@ const Board = ({ wordOfTheDay }) => {
     const [word, setWord] = useState([])
     const words = ["this", "is", "one", "more", "easter", "egg"]
 
-    useEffect(() => {
+    React.useEffect(() => {
         setWord(Array.from(wordOfTheDay.toLowerCase()))
     }, [])
     
