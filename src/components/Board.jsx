@@ -12,34 +12,27 @@ const colorGrid = [
     ["", "", "", "", ""]
 ]
 
-const Board = () => {
+const Board = ({ wordOfTheDay }) => {
     const enter = useEnterPress()
     const [active, setActive] = useState(0)
     const [guess, setGuess] = useState("")
     const [colors, setColors] = useState(colorGrid)
-    const word = ["a", "x", "i", "o", "m"]
+    const [word, setWord] = useState([])
     const words = ["this", "is", "one", "more", "easter", "egg"]
+
+    useEffect(() => {
+        setWord(Array.from(wordOfTheDay.toLowerCase()))
+    }, [])
     
     useEffect(() => {
-        console.log(guess)
         if (guess.length === 5) {
-            console.log("here")
             const correct = checkWord()
             const temp = colors
             temp[active] = correct
-            console.log(temp)
             setColors(temp)
             nextWord()
         }
     }, [enter])
-
-    // useEffect(() => {
-    //     if (word.length === 5) {
-    //         setGuess(word)
-            
-    //         setWord("")
-    //     }
-    // }, [enter])
 
     const nextWord = () => {
         setActive(active + 1)
