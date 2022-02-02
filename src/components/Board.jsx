@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useEffect } from 'react/cjs/react.development';
 import Word from "./Word"
 import useEnterPress from '../hooks/useEnterPress';
 import useBackspacePress from '../hooks/useBackspacePress';
