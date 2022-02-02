@@ -1,2 +1,2 @@
 # wordle
-<a href="wordle.land"> pro-union wordle </a> 
+<a href="http://wordle.land"> pro-union wordle </a> 
