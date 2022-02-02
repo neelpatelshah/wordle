@@ -1,2 +1,3 @@
 # wordle
-pro-union wordle
+prounionwordle.com
+wordle.land
