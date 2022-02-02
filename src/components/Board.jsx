@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useEffect } from 'react/cjs/react.development';
 import Word from "./Word"
 import useEnterPress from '../hooks/useEnterPress';
+import useBackspacePress from '../hooks/useBackspacePress';
+import useLetterPress from '../hooks/useLetterPress';
 
 const colorGrid = [
     ["", "", "", "", ""],
@@ -12,11 +14,23 @@ const colorGrid = [
     ["", "", "", "", ""]
 ]
 
+const guessGrid = [
+    ["", "", "", "", ""],
+    ["", "", "", "", ""],
+    ["", "", "", "", ""],
+    ["", "", "", "", ""],
+    ["", "", "", "", ""],
+    ["", "", "", "", ""]
+]
+
 const Board = ({ wordOfTheDay }) => {
     const enter = useEnterPress()
-    const [active, setActive] = useState(0)
-    const [guess, setGuess] = useState("")
+    const backspace = useBackspacePress()
+    const keyPressed = useLetterPress() 
+    const [activeWord, setActiveWord] = useState(0)
+    const [activeLetter, setActiveLetter] = useState(0)
     const [colors, setColors] = useState(colorGrid)
+    const [guesses, setGuesses] = useState(guessGrid)
     const [word, setWord] = useState([])
     const words = ["this", "is", "one", "more", "easter", "egg"]
 
@@ -24,23 +38,43 @@ const Board = ({ wordOfTheDay }) => {
         setWord(Array.from(wordOfTheDay.toLowerCase()))
     }, [])
     
-    useEffect(() => {
-        if (guess.length === 5) {
+    React.useEffect(() => {
+        if (activeLetter > 4) {
             const correct = checkWord()
             const temp = colors
-            temp[active] = correct
+            temp[activeWord] = correct
             setColors(temp)
-            nextWord()
+            setActiveWord(activeWord + 1)
+            setActiveLetter(0)
         }
     }, [enter])
 
-    const nextWord = () => {
-        setActive(active + 1)
-        setGuess("")
-    }
+    React.useEffect(() => {
+        if (keyPressed.length === 1) {
+            if (activeLetter <= 4) {
+                setActiveLetter(activeLetter + 1)
+                const temp = guesses[activeWord]
+                temp[activeLetter] = keyPressed.toUpperCase()
+                const temp2 = guesses
+                temp2[activeWord] = temp
+                setGuesses(temp2)
+            }
+        }
+    }, [keyPressed])
+
+    React.useEffect(() => {
+        if (word.length && backspace) {
+            const temp = guesses[activeWord]
+            temp.pop()
+            const temp2 = guesses
+            temp2[activeWord] = temp
+            setGuesses(temp2)
+            setActiveLetter(activeLetter - 1)
+        }
+    }, [backspace])
 
     const checkWord = () => {
-        const guessLetters = Array.from(guess.toLowerCase())
+        const guessLetters = guesses[activeWord].map((letter) => letter.toLowerCase())
         const correctness = []
         for (let i = 0; i < 5; i += 1) {
             if (guessLetters[i] === word[i]) {
@@ -56,11 +90,9 @@ const Board = ({ wordOfTheDay }) => {
 
     return (
         <>
-            {words.map((word, index) => 
+            {words.map((_, index) => 
                 <Word 
-                    active={index === active} 
-                    nextWord={nextWord}
-                    setGuess={setGuess}
+                    word={guesses[index]}
                     colors={mapColors(colors[index])}
                 />
             )}

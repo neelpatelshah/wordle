@@ -1,30 +1,12 @@
 import React, { useEffect, useState }  from 'react';
 import styled from "styled-components"
-import useLetterPress from '../hooks/useLetterPress';
 
 
-const Letter = ({ active, setEnteredLetter, backspace }) => {
-    const keyPressed = useLetterPress(active)    
-    const [letter, setLetter] = useState("")
-
-    useEffect(() => {
-        if (active && keyPressed.length === 1) {
-            setLetter(keyPressed.toUpperCase())
-            setEnteredLetter(keyPressed.toUpperCase())
-        }
-    }, [keyPressed])
-
-    useEffect(() => {
-        if (backspace) {
-            setLetter("")
-        }
-    }, [backspace])
-
-
+const Letter = ({ letter }) => {
     return <p style={styles.letter}> {letter} </p>
 }
 
-const Square = ({ active, setEnteredLetter, color, backspace }) => {
+const Square = ({ letter, color }) => {
     const [squareColor, setSquareColor] = useState("")
     useEffect(() => {
         setSquareColor(color)
@@ -32,7 +14,7 @@ const Square = ({ active, setEnteredLetter, color, backspace }) => {
 
     return (
         <SquareView style={{backgroundColor: squareColor}}> 
-            <Letter active={active} setEnteredLetter={setEnteredLetter} backspace={backspace}/>
+            <Letter letter={letter}/>
          </SquareView>
     )
 }
