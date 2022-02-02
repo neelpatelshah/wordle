@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useEffect } from 'react/cjs/react.development';
 import Word from "./Word"
 import useEnterPress from '../hooks/useEnterPress';
@@ -34,11 +34,11 @@ const Board = ({ wordOfTheDay }) => {
     const [word, setWord] = useState([])
     const words = ["this", "is", "one", "more", "easter", "egg"]
 
-    React.useEffect(() => {
+    useEffect(() => {
         setWord(Array.from(wordOfTheDay.toLowerCase()))
     }, [])
     
-    React.useEffect(() => {
+    useEffect(() => {
         if (activeLetter > 4) {
             const correct = checkWord()
             const temp = colors
@@ -49,7 +49,7 @@ const Board = ({ wordOfTheDay }) => {
         }
     }, [enter])
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (keyPressed.length === 1) {
             if (activeLetter <= 4) {
                 setActiveLetter(activeLetter + 1)
@@ -62,7 +62,7 @@ const Board = ({ wordOfTheDay }) => {
         }
     }, [keyPressed])
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (word.length && backspace) {
             const temp = guesses[activeWord]
             temp.pop()
