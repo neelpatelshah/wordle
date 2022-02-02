@@ -1,3 +1,2 @@
 # wordle
-prounionwordle.com
-wordle.land
+<a href="wordle.land"> pro-union wordle </a> 
