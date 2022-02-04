@@ -3,6 +3,7 @@ import Word from "./Word"
 import useEnterPress from '../hooks/useEnterPress';
 import useBackspacePress from '../hooks/useBackspacePress';
 import useLetterPress from '../hooks/useLetterPress';
+import useDictionary from '../hooks/useDictionary';
 
 const colorGrid = [
     ["", "", "", "", ""],
@@ -22,16 +23,21 @@ const guessGrid = [
     ["", "", "", "", ""]
 ]
 
-const Board = ({ wordOfTheDay, input, clearInput }) => {
+const Board = ({ wordOfTheDay, input, clearInput, height, width }) => {
     // make these detectable in hook so i can clear it
-    const enter = useEnterPress()
-    const backspace = useBackspacePress()
-    const keyPressed = useLetterPress() 
+    const [enter, setEnter] = useState(false)
+    const [backspace, setBackspace] = useState(false)
+    const [keyPressed, setKeyPressed] = useState("")
+    useEnterPress(setEnter)
+    useBackspacePress(setBackspace)
+    useLetterPress(setKeyPressed)
+    const dictionary = useDictionary() 
     const [activeWord, setActiveWord] = useState(0)
     const [activeLetter, setActiveLetter] = useState(0)
     const [colors, setColors] = useState(colorGrid)
     const [guesses, setGuesses] = useState(guessGrid)
     const [word, setWord] = useState([])
+    const [showMispelled, setShowMispelled] = useState(false)
     const words = ["this", "is", "one", "more", "easter", "egg"]
 
     console.log(guesses)
@@ -53,20 +59,23 @@ const Board = ({ wordOfTheDay, input, clearInput }) => {
     
     useEffect(() => {
         handleEnter()
+        setEnter(false)
     }, [enter])
 
     useEffect(() => {
         handleKeyPress(keyPressed)
+        setKeyPressed("")
     }, [keyPressed])
 
     useEffect(() => {
         if (backspace) {
             handleBackspace(backspace)
         }
+        setBackspace(false)
     }, [backspace])
 
-    const checkWord = () => {
-        const guessLetters = guesses[activeWord].map((letter) => letter.toLowerCase())
+    const checkWord = (guess) => {
+        const guessLetters = guess.map((letter) => letter.toLowerCase())
         const correctness = []
         for (let i = 0; i < 5; i += 1) {
             if (guessLetters[i] === word[i]) {
@@ -82,12 +91,18 @@ const Board = ({ wordOfTheDay, input, clearInput }) => {
 
     const handleEnter = () => {
         if (activeLetter === 5) {
-            const correct = checkWord()
-            const temp = colors
-            temp[activeWord] = correct
-            setColors(temp)
-            setActiveWord(activeWord + 1)
-            setActiveLetter(0)
+            const guess = guesses[activeWord]
+            console.log(dictionary)
+            if (dictionary.includes(guess.join("").toLowerCase())) {
+                const correct = checkWord(guess)
+                const temp = colors
+                temp[activeWord] = correct
+                setColors(temp)
+                setActiveWord(activeWord + 1)
+                setActiveLetter(0)
+            } else {
+                setShowMispelled(true)
+            }
         }
     }
 
@@ -101,6 +116,7 @@ const Board = ({ wordOfTheDay, input, clearInput }) => {
         if (activeLetter) {
             setActiveLetter(activeLetter - 1)
         }
+        setShowMispelled(false)
     }
 
     const handleKeyPress = (key) => {
@@ -125,8 +141,11 @@ const Board = ({ wordOfTheDay, input, clearInput }) => {
                 <Word 
                     word={guesses[index]}
                     colors={mapColors(colors[index])}
+                    height={height}
+                    width={width}
                 />
             )}
+            {showMispelled && <p> not a word stupid </p>}
         </>
     )
 }

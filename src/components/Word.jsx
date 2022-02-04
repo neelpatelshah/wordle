@@ -1,7 +1,7 @@
 import React from 'react';
 import Square from "./Square"
 
-const Word = ({ word, colors }) => {
+const Word = ({ word, colors, height, width }) => {
 
     const letters = ["this", "is", "an", "easter", "egg"]
 
@@ -11,6 +11,8 @@ const Word = ({ word, colors }) => {
                 <Square 
                     letter={word[index]}
                     color={colors[index]}
+                    height={height}
+                    width={width}
                 />
             )}
         </div>

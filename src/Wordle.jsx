@@ -3,7 +3,10 @@ import Board from "./components/Board";
 import Keyboard from './components/Keyboard';
 import { isMobile } from "react-device-detect"
 
-const Wordle = () => {
+const Wordle = ({ dimensions }) => {
+    const { height, width} = dimensions
+    const boardHeight = isMobile ? parseInt((height - 250) * 0.7) : height - 250
+    const keyboardHeight = height - boardHeight
 
     const [input, setInput] = useState("")
 
@@ -22,10 +25,20 @@ const Wordle = () => {
     return (
         <div>
             <>
-                <Board wordOfTheDay="union" input={input} clearInput={clearInput}/>
+                <Board 
+                    wordOfTheDay="union" 
+                    input={input} 
+                    clearInput={clearInput} 
+                    height={boardHeight} 
+                    width={width}
+                />
             </>
-            {isMobile && <>
-                <Keyboard setKeyEvent={handleKeyEvent}/>
+            {!isMobile && <>
+                <Keyboard 
+                    setKeyEvent={handleKeyEvent} 
+                    height={keyboardHeight}
+                    width={width}
+                />
             </>}
         </div>
     )

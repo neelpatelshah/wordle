@@ -2,7 +2,10 @@ import React from 'react';
 import Button from './Button';
 
 
-const Keyboard = ({ setKeyEvent }) => {
+const Keyboard = ({ setKeyEvent, height, width }) => {
+    const keyHeight = parseInt(height/3)-10
+    const keyWidth = parseInt(width/10)-22
+    const fontSize = parseInt(keyHeight * 0.75)
 
     const handlePress = (key) => {
         if (key.match(/[A-Z]/i)) {
@@ -18,7 +21,16 @@ const Keyboard = ({ setKeyEvent }) => {
         rows.map((row) => 
             <div style={styles.row}>
                 {row.map((key) => 
-                <Button onClick={() => handlePress(key)}>{key}</Button>
+                <Button 
+                    onClick={() => handlePress(key)}
+                    style={{
+                        height: keyHeight,
+                        width: keyWidth,
+                        fontSize: fontSize
+                    }}
+                >
+                    {key}
+                </Button>
             )}
             </div>
                 

@@ -3,15 +3,13 @@ import styled from 'styled-components';
 const Button = styled.div`
     display: flex;
     padding: 4px;
-    margin: 3px;
+    margin: 2px;
     // Hardcoding sizes for dev speed; let's revise
-    width: 40px;
-    height: 32px;
     border: 1px solid #c4c8cc;
     font-family: "Quicksand";
-    border-radius: 10px;
+    font-weight: lighter;
+    border-radius: 7px;
     color: #fff;
-    font-size: 23px;
     flex-direction: row;
     align-items: center;
     justify-content: center;
