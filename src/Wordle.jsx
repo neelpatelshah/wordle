@@ -5,7 +5,7 @@ import { isMobile } from "react-device-detect"
 
 const Wordle = ({ dimensions }) => {
     const { height, width} = dimensions
-    const boardHeight = isMobile ? parseInt((height - 250) * 0.7) : height - 250
+    const boardHeight = isMobile ? parseInt((height - 150) * 0.7) : height - 250
     const keyboardHeight = (height - 250) - boardHeight
 
     const [input, setInput] = useState("")
