@@ -4,7 +4,7 @@ import Button from './Button';
 
 const Keyboard = ({ setKeyEvent, height, width }) => {
     const keyHeight = parseInt(height/3)-10
-    const keyWidth = parseInt(width/10)-22
+    const keyWidth = parseInt(width/10)-15
     const fontSize = parseInt(keyHeight * 0.75)
 
     const handlePress = (key) => {

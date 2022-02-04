@@ -40,8 +40,6 @@ const Board = ({ wordOfTheDay, input, clearInput, height, width }) => {
     const [showMispelled, setShowMispelled] = useState(false)
     const words = ["this", "is", "one", "more", "easter", "egg"]
 
-    console.log(guesses)
-
     useEffect(() => {
         setWord(Array.from(wordOfTheDay.toLowerCase()))
     }, [])

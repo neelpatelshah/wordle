@@ -1,5 +1,6 @@
 import React, { useEffect, useState }  from 'react';
 import styled from "styled-components"
+import { isMobile } from "react-device-detect"
 
 
 const Letter = ({ letter, size }) => {
@@ -8,9 +9,8 @@ const Letter = ({ letter, size }) => {
 
 const Square = ({ letter, color, height, width }) => {
     const [squareColor, setSquareColor] = useState("")
-    const isPortrait = height > width
     let squareSide;
-    if (isPortrait) {
+    if (isMobile) {
         squareSide = parseInt(width/6)-2
     } else {
         squareSide = parseInt(height/6)-2
