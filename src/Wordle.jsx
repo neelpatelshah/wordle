@@ -33,7 +33,7 @@ const Wordle = ({ dimensions }) => {
                     width={width}
                 />
             </>
-            {!isMobile && <>
+            {isMobile && <>
                 <Keyboard 
                     setKeyEvent={handleKeyEvent} 
                     height={keyboardHeight}
