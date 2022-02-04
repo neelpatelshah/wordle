@@ -11,9 +11,9 @@ const Square = ({ letter, color, height, width }) => {
     const [squareColor, setSquareColor] = useState("")
     let squareSide;
     if (isMobile) {
-        squareSide = parseInt(width/6)-2
+        squareSide = parseInt(width/6)-12
     } else {
-        squareSide = parseInt(height/6)-2
+        squareSide = parseInt(height/6)
     }
     const fontSize = parseInt(squareSide * 0.75)
     useEffect(() => {
