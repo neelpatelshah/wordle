@@ -26,7 +26,7 @@ const Wordle = ({ dimensions }) => {
         <div>
             <>
                 <Board 
-                    wordOfTheDay="union" 
+                    wordOfTheDay="float" 
                     input={input} 
                     clearInput={clearInput} 
                     height={boardHeight} 
